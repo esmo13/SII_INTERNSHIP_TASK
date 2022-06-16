@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -29,5 +30,14 @@ public class UserService {
     }
     public List<User> getUsers(){
         return userRepository.findAll();
+    }
+    public Optional<User> getUserById(Long id){
+        return userRepository.findById(id);
+    }
+    public User getUserByName(String name){
+        return userRepository.findByLogin(name);
+    }
+    public boolean existsByName(String name){
+        return userRepository.existsByLogin(name);
     }
 }
