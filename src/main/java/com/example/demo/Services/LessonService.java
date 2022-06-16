@@ -55,4 +55,22 @@ public class LessonService {
         }
 
     }
+    @Transactional
+    public void unsignFromLesson(Long lessonId, User user){
+        User user_ = userService.getUserByNameAndEmail(user.getLogin(),user.getEmail()) ;
+        if (user_ != null) {
+            Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(()-> new IllegalStateException("lesson not found"));
+            Set<User> set = lesson.getUsers();
+            if(set.contains(user_)){
+                set.remove(user_);
+                lesson.setUsers(set);
+            }
+            else{
+                throw new IllegalStateException("You are not signed for this lesson");
+            }
+        }
+        else
+            throw new IllegalStateException("user does not exist");
+
+    }
 }

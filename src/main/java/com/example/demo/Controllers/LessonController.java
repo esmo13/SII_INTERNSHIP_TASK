@@ -38,4 +38,15 @@ public class LessonController {
 
         }
     }
+    @PutMapping(path="unsign/{LessonID}")
+    public ResponseEntity<Object> unsignFromLesson(@PathVariable("LessonID") Long lessonId, @RequestBody User user){
+        try{
+            lessonService.unsignFromLesson(lessonId,user);
+            return new ResponseEntity<>("Operation successful",HttpStatus.OK);
+        }
+        catch(Exception ex){
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 }
