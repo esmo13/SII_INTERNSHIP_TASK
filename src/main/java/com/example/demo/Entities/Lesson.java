@@ -85,4 +85,13 @@ public class Lesson {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
+    @Override
+    public String toString() {
+        return "Lesson{" +
+                "id=" + id +
+                ", topic='" + topic + '\'' +
+                ", dateTime=" + dateTime +
+                '}';
+    }
 }

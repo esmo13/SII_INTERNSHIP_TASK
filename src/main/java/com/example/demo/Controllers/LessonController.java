@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -52,5 +53,13 @@ public class LessonController {
     @GetMapping(path="{username}")
     public List<Lesson> getLessonsByUsername(@PathVariable String username){
         return lessonService.getReservedLessons(username);
+    }
+    @GetMapping(path="/org/lessons")
+    public Map<String,Float> getLessonPopularity(){
+        return lessonService.getLessonPopulatiry();
+    }
+    @GetMapping(path="/org/topics")
+    public Map <String,Float> getTopicPopularity(){
+        return lessonService.getTopicPopularity();
     }
 }

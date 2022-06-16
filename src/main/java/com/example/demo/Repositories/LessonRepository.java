@@ -12,4 +12,5 @@ import java.util.List;
 public interface LessonRepository extends JpaRepository<Lesson,Long> {
     List<Lesson> findAllByUsersContaining(User user);
     List<Lesson> findAllByDateTime(LocalDateTime dateTime);
+    List<Lesson> getLessonByTopic(String topic);
 }
