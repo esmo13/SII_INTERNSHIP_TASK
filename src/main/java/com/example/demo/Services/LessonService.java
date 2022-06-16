@@ -70,9 +70,10 @@ public class LessonService {
             set.add(user_);
             lesson.setUsers(set);
             LocalDateTime sent = LocalDateTime.now();
-            String mail = "Sent at:"+sent +"TO:"+user_.getEmail()+"You were successfully signed to lesson" + lesson.toString();
+            String mail = "Sent at:"+sent +"TO:"+user_.getEmail()+"You were successfully signed to lesson" + lesson.toString()+"\n";
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter("powiadomienia.txt"));
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter("powiadomienia.txt",true));
             writer.write(mail);
             writer.close();
         }
