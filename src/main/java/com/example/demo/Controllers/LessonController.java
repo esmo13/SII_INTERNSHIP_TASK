@@ -32,6 +32,7 @@ public class LessonController {
     public ResponseEntity<Object> signToLesson(@PathVariable("LessonID")Long lessonId , @RequestBody User user) {
         try {
             lessonService.signToLesson(lessonId, user);
+
             return new ResponseEntity<>("signed successfully", HttpStatus.OK);
         } catch (Exception ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

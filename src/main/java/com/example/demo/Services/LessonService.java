@@ -4,11 +4,19 @@ import com.example.demo.Entities.Lesson;
 import com.example.demo.Entities.User;
 import com.example.demo.Repositories.LessonRepository;
 import com.example.demo.Repositories.UserRepository;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,7 +38,7 @@ public class LessonService {
     return lessonRepository.findAllByUsersContaining(userService.getUserByName(username));
     }
     @Transactional
-    public void signToLesson(Long lessonId, User user){
+    public void signToLesson(Long lessonId, User user) throws IOException {
         User user_ ;
         if(userService.existsByName(user.getLogin())) {
              user_ = userService.getUserByName(user.getLogin());
@@ -61,6 +69,12 @@ public class LessonService {
         else{
             set.add(user_);
             lesson.setUsers(set);
+            LocalDateTime sent = LocalDateTime.now();
+            String mail = "Sent at:"+sent +"TO:"+user_.getEmail()+"You were successfully signed to lesson" + lesson.toString();
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter("powiadomienia.txt"));
+            writer.write(mail);
+            writer.close();
         }
 
     }
