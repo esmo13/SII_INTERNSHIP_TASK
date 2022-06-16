@@ -22,7 +22,7 @@ public class LessonConfig {
         String str2= "2012-06-01 12:00";
         String str3= "2012-06-01 14:00";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        System.out.println(new Lesson("Topic", LocalDateTime.parse(str,formatter),set).toString());
+
         return args -> {
            Lesson lesson1 = new Lesson(
                    "Topic1",
