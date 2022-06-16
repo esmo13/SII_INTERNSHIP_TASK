@@ -24,8 +24,8 @@ public class LessonService {
     public List<Lesson> getLessons(){
         return lessonRepository.findAll();
     }
-    public List<Lesson> getReservedLessons(Long userid){
-    return lessonRepository.findAllByUsersContaining(userService.getUserById(userid).get());
+    public List<Lesson> getReservedLessons(String username){
+    return lessonRepository.findAllByUsersContaining(userService.getUserByName(username));
     }
     @Transactional
     public void signToLesson(Long lessonId, User user){
@@ -42,6 +42,13 @@ public class LessonService {
 
        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(()-> new IllegalStateException("lesson not found"));
         Set<User> set = lesson.getUsers();
+        List<Lesson> list = lessonRepository.findAllByDateTime(lesson.getDateTime());
+        for (Lesson lesson_:list
+             ) {
+            if(!lesson_.equals(lesson) && lesson_.getUsers().contains(user_))
+                throw new IllegalStateException("You are already signed for a lesson at that time");
+
+        }
         if(set.size()>=5){
             throw new IllegalStateException("lesson is full");
         }

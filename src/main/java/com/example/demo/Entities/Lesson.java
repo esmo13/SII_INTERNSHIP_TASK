@@ -20,7 +20,7 @@ public class Lesson {
     private Long id;
     private String topic;
     private LocalDateTime dateTime;
-    @ManyToMany(fetch = FetchType.EAGER,targetEntity = User.class,cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY,targetEntity = User.class,cascade = CascadeType.ALL)
     @JoinTable(name="reservations",joinColumns =@JoinColumn(name="lesson_id"),
             inverseJoinColumns = @JoinColumn(name="user_id"))
     private Set<User> users;
@@ -36,6 +36,22 @@ public class Lesson {
         this.topic = topic;
         this.dateTime = dateTime;
         this.users = users;
+    }
+
+    public Lesson() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lesson lesson = (Lesson) o;
+        return id.equals(lesson.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public Long getId() {
@@ -68,31 +84,5 @@ public class Lesson {
 
     public void setUsers(Set<User> users) {
         this.users = users;
-    }
-
-    public Lesson() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Lesson lesson = (Lesson) o;
-        return id.equals(lesson.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Lesson{" +
-                "id=" + id +
-                ", topic='" + topic + '\'' +
-                ", dateTime=" + dateTime +
-                ", users=" + users +
-                '}';
     }
 }

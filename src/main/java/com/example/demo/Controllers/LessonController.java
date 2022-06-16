@@ -49,4 +49,8 @@ public class LessonController {
         }
 
     }
+    @GetMapping(path="{username}")
+    public List<Lesson> getLessonsByUsername(@PathVariable String username){
+        return lessonService.getReservedLessons(username);
+    }
 }
