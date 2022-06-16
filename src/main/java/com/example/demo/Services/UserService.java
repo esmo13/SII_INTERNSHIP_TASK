@@ -1,12 +1,12 @@
-package Services;
+package com.example.demo.Services;
 
-import Entities.User;
-import Repositories.UserRepository;
-import net.bytebuddy.implementation.bytecode.Throw;
+import com.example.demo.Entities.User;
+import com.example.demo.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -23,5 +23,11 @@ public class UserService {
         user.setEmail(newEmail);
     }
     else throw new IllegalStateException("user with such email already exists");
+    }
+    public User addUser(User user){
+        return userRepository.save(user);
+    }
+    public List<User> getUsers(){
+        return userRepository.findAll();
     }
 }

@@ -1,4 +1,4 @@
-package Entities;
+package com.example.demo.Entities;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -38,6 +38,38 @@ public class Lesson {
         this.users = users;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
     public Lesson() {
     }
 
@@ -52,5 +84,15 @@ public class Lesson {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Lesson{" +
+                "id=" + id +
+                ", topic='" + topic + '\'' +
+                ", dateTime=" + dateTime +
+                ", users=" + users +
+                '}';
     }
 }

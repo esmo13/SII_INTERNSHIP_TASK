@@ -1,9 +1,12 @@
-package Controllers;
+package com.example.demo.Controllers;
 
-import Classes.UserPutForm;
-import Services.UserService;
+import com.example.demo.Classes.UserPutForm;
+import com.example.demo.Entities.User;
+import com.example.demo.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path="/api/users")
@@ -19,4 +22,16 @@ public class UserController {
     {
         userService.updateUser(userId,userPutForm.getEmail());
     }
-}
+    @PostMapping
+    public User addUser(@RequestBody User user){
+    return userService.addUser(user);
+
+        }
+    @GetMapping
+    public List<User> getUsers(){
+    return userService.getUsers();
+    }
+
+
+    }
+

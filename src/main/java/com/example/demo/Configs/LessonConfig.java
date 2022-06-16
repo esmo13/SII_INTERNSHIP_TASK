@@ -1,8 +1,8 @@
-package Configs;
+package com.example.demo.Configs;
 
-import Entities.Lesson;
-import Entities.User;
-import Repositories.LessonRepository;
+import com.example.demo.Entities.Lesson;
+import com.example.demo.Entities.User;
+import com.example.demo.Repositories.LessonRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,14 +15,14 @@ import java.util.Set;
 
 @Configuration
 public class LessonConfig {
-    @Bean(name="LessonCfg")
-    CommandLineRunner commandLineRunner(LessonRepository lessonRepository){
-        Set<User> set = new HashSet<User>();
+ @Bean(name = "lessoncfg")
+    CommandLineRunner commandLineRunner(LessonRepository repository){
+        Set<User> set = new HashSet<>();
         String str= "2012-06-01 10:00";
         String str2= "2012-06-01 12:00";
         String str3= "2012-06-01 14:00";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
+        System.out.println(new Lesson("Topic", LocalDateTime.parse(str,formatter),set).toString());
         return args -> {
            Lesson lesson1 = new Lesson(
                    "Topic1",
@@ -69,8 +69,7 @@ public class LessonConfig {
                            LocalDateTime.parse(str3,formatter),
                            set
                    );
-           lessonRepository.saveAll(List.of(lesson1,lesson2,lesson3,lesson4,lesson5,lesson6,lesson7,lesson8,lesson9));
-
+           repository.saveAll(List.of(lesson1,lesson2,lesson3,lesson4,lesson5,lesson6,lesson7,lesson8,lesson9));
 
 
     };

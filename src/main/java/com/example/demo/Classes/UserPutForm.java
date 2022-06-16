@@ -1,4 +1,4 @@
-package Classes;
+package com.example.demo.Classes;
 
 public class UserPutForm {
     private String email;

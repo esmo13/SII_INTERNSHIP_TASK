@@ -1,8 +1,11 @@
-package Services;
+package com.example.demo.Services;
 
-import Repositories.LessonRepository;
+import com.example.demo.Entities.Lesson;
+import com.example.demo.Repositories.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LessonService {
@@ -10,5 +13,8 @@ public class LessonService {
     @Autowired
     LessonService(LessonRepository lessonRepository){
         this.lessonRepository=lessonRepository;
+    }
+    public List<Lesson> getLessons(){
+        return lessonRepository.findAll();
     }
 }
