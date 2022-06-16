@@ -2,8 +2,6 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Entities.Lesson;
 import com.example.demo.Entities.User;
-import com.example.demo.Exceptions.LessonFullException;
-import com.example.demo.Exceptions.LoginTakenException;
 import com.example.demo.Services.LessonService;
 import com.example.demo.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
