@@ -2,12 +2,17 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Entities.Lesson;
 import com.example.demo.Entities.User;
+import com.example.demo.Exceptions.LessonFullException;
+import com.example.demo.Exceptions.LoginTakenException;
 import com.example.demo.Services.LessonService;
 import com.example.demo.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping(path=("/api/lessons"))
@@ -23,12 +28,14 @@ public class LessonController {
     }
     @PutMapping(path="{LessonID}")
 
-    public void signToLesson(@PathVariable("LessonID")Long lessonId ,@RequestBody User user){
-    lessonService.signToLesson(lessonId,user);
+    public ResponseEntity<Object> signToLesson(@PathVariable("LessonID")Long lessonId , @RequestBody User user) {
+        try {
+            lessonService.signToLesson(lessonId, user);
+            return new ResponseEntity<>("signed successfully", HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 
-    }
-    @ExceptionHandler
-    public String handleException(){
-        return "sum think wronk";
+
+        }
     }
 }

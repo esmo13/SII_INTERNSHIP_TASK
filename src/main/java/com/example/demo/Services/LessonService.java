@@ -32,7 +32,7 @@ public class LessonService {
         User user_ ;
         if(userService.existsByName(user.getLogin())) {
              user_ = userService.getUserByName(user.getLogin());
-             if(user_.getEmail().equals(user.getEmail()) ){
+             if(!user_.getEmail().equals(user.getEmail()) ){
                  throw new IllegalStateException("user with such login already exists");
              }
         }
