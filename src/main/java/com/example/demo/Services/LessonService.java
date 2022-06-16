@@ -99,35 +99,29 @@ public class LessonService {
 
     public Map<String, Float> getTopicPopularity() {
         Map<String,Float> map = new ManagedMap<>();
-        //temat powinien byc enumem, jak zdaze to poprawie
-        Integer globalSum=0,sum1=0,sum2=0,sum3=0;
-        List<Lesson> list1 = lessonRepository.getLessonByTopic("Topic1");
-        List <Lesson> list2 = lessonRepository.getLessonByTopic("Topic2");
-        List <Lesson> list3 = lessonRepository.getLessonByTopic("Topic3");
-        for (Lesson l:list1
-             ) {for(User user : l.getUsers()){
-                 globalSum++;
-            sum1++;
-        }
+        List<String> topics = lessonRepository.getDistinctTopics();
+        Integer globalSum=0;
+        List<Lesson> list;
+        for (String topic:topics
+             ) {
+                map.put(topic,(float)0);
+                list=lessonRepository.getLessonByTopic(topic);
+            for (Lesson l:list
+                 ) {
+                for (User u:l.getUsers()
+                     ) {
+                    globalSum++;
+                    map.put(topic,map.get(topic)+1);
+                }
+            }
+
 
         }
-        for (Lesson l:list2
-        ) {for(User user : l.getUsers()){
-            sum2++;
-            globalSum++;
+        for (String topic:topics
+             ) {
+            map.put(topic,map.get(topic)/(float)globalSum*100);
         }
 
-        }
-        for (Lesson l:list3
-        ) {for(User user : l.getUsers()){
-            sum3++;
-            globalSum++;
-        }
-
-        }
-        map.put("Topic1",(float)sum1/(float)globalSum*100);
-        map.put("Topic2",(float)sum2/(float)globalSum*100);
-        map.put("Topic3",(float)sum3/(float)globalSum*100);
         return map;
     }
 }
